@@ -1,0 +1,32 @@
+{
+    "name": "simplyadmire/koop",
+    "description": "Uitvragen Officiële Publicaties DROP / GVOP Koop",
+    "license": "MIT",
+    "keywords": ["drop", "gvop", "koop", "officiele bekendmakingen"],
+    "authors": [
+        {
+            "name": "Rens Admiraal",
+            "email": "rens@simplyadmire.com"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": {
+            "SimplyAdmire\\Koop\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.1.0",
+        "guzzlehttp/guzzle": "^6.0",
+        "beberlei/assert": "^2.4"
+    },
+    "require-dev": {
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
