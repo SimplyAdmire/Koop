@@ -81,6 +81,10 @@ final class QueryResult implements \Iterator
 
         $this->totalRows = \min($this->query->getLimit(), (int)$xmlObject->numberOfRecords);
 
+        if (!isset($xmlObject->records)) {
+            return;
+        }
+
         $this->pages[$page] = [];
         foreach ($xmlObject->records->children() as $xmlRecordObject) {
             $this->pages[$page][] = Publication::createFromXml($xmlRecordObject->recordData->gzd->asXML());
