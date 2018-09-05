@@ -37,7 +37,9 @@ final class Client
 
     public function execute(Query $query, array $options = []): QueryResult
     {
-        return new QueryResult($this->configuration, $this->client, $query, $options);
+        $result = new QueryResult($this->configuration, $this->client, $query, $options);
+
+        return $result->valid() ? $result : null;
     }
 
 }
