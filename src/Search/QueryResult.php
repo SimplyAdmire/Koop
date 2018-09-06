@@ -9,7 +9,7 @@ use SimplyAdmire\Koop\Client;
 use SimplyAdmire\Koop\Configuration;
 use SimplyAdmire\Koop\Model\Publication;
 
-final class QueryResult implements \Iterator
+final class QueryResult implements \Iterator, \Countable
 {
 
     /**
@@ -152,6 +152,11 @@ final class QueryResult implements \Iterator
     public function rewind(): void
     {
         $this->index = 0;
+    }
+
+    public function count(): int
+    {
+        return $this->totalRows;
     }
 
 }
