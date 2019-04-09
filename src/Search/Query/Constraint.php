@@ -21,7 +21,7 @@ final class Constraint implements ConstraintInterface
 
     public function __toString(): string
     {
-        return \implode('', [$this->propertyName, $this->operator, \urlencode((string)$this->value)]);
+        return \implode('', [$this->propertyName, $this->operator, '"' . (string)$this->value . '"']);
     }
 
 }

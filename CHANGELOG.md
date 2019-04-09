@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2019-04-09
+### Fixed
+- Skip page if XML can not be parsed by `simplexml_load_string()`
+- Prevent "argument 5 passed to Publication should be instanceof DateTime" if publication date
+  can not be parsed.
+- Use `&keyword all <terms>` for fulltext search to support multiple terms 
+- Leave encoding to http_build_query but wrap constraints
+
 ## [0.1.1] - 2018-11-25
 ### Fixed
 - Urlencode query arguments

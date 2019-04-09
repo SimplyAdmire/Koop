@@ -31,13 +31,15 @@ final class Publication
      */
     private $publicationDate;
 
-    public function __construct(string $identifier, string $type, string $title, string $url, \DateTime $publicationDate)
+    public function __construct(string $identifier, string $type, string $title, string $url, ?\DateTime $publicationDate = null)
     {
         $this->identifier = $identifier;
         $this->type = $type;
         $this->title = $title;
         $this->url = $url;
-        $this->publicationDate = $publicationDate;
+        if ($publicationDate instanceof \DateTime) {
+            $this->publicationDate = $publicationDate;
+        }
     }
 
     public static function createFromXml(string $xml): Publication
@@ -50,13 +52,18 @@ final class Publication
             $xmlObject->registerXPathNamespace($strPrefix, $strNamespace);
         }
 
-        return new static(
+        $instance = new static(
             (string)$xmlObject->xpath('//dcterms:identifier')[0],
             (string)$xmlObject->xpath('//dcterms:type')[0],
             (string)$xmlObject->xpath('//dcterms:title')[0],
-            (string)$xmlObject->xpath('//_:url')[0],
-            \DateTime::createFromFormat('Y-m-d', (string)$xmlObject->xpath('//dcterms:available')[0])
+            (string)$xmlObject->xpath('//_:url')[0]
         );
+
+        $publicationDate = \DateTime::createFromFormat('Y-m-d', (string)$xmlObject->xpath('//dcterms:available')[0]);
+        if ($publicationDate instanceof \DateTime) {
+            $instance->publicationDate = $publicationDate;
+        }
+        return $instance;
     }
 
     /**
@@ -92,9 +99,9 @@ final class Publication
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getPublicationDate(): \DateTime
+    public function getPublicationDate(): ?\DateTime
     {
         return $this->publicationDate;
     }
