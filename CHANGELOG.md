@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
+- Skip page if XML can not be parsed by `simplexml_load_string()`
 - Prevent "argument 5 passed to Publication should be instanceof DateTime" if publication date
   can not be parsed.
 - Use `&keyword all <terms>` for fulltext search to support multiple terms 

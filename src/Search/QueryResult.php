@@ -78,12 +78,11 @@ final class QueryResult implements \Iterator, \Countable
         Assertion::notEmpty($xml, 'An error occurred while calling the API');
 
         $xmlObject = \simplexml_load_string($xml);
-
-        $this->totalRows = \min($this->query->getLimit(), (int)$xmlObject->numberOfRecords);
-
-        if (!isset($xmlObject->records)) {
+        if ($xmlObject === false || !isset($xmlObject->records)) {
             return;
         }
+
+        $this->totalRows = \min($this->query->getLimit(), (int)$xmlObject->numberOfRecords);
 
         $this->pages[$page] = [];
         foreach ($xmlObject->records->children() as $xmlRecordObject) {
