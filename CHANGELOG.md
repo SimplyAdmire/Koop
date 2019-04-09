@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
+- Prevent "argument 5 passed to Publication should be instanceof DateTime" if publication date
+  can not be parsed.
 - Use `&keyword all <terms>` for fulltext search to support multiple terms 
 - Leave encoding to http_build_query but wrap constraints
 
