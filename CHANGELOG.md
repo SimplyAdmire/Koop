@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
+- Use `&keyword all <terms>` for fulltext search to support multiple terms 
 - Leave encoding to http_build_query but wrap constraints
 
 ## [0.1.1] - 2018-11-25
