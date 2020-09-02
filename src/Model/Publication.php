@@ -84,11 +84,10 @@ final class Publication
 
     /**
      * @param \DateTime $publicationDate
-     * @return \DateTime
      */
     public function setPublicationDate(\DateTime $publicationDate)
     {
-        return $this->publicationDate = $publicationDate;
+        $this->publicationDate = $publicationDate;
     }
 
 }
