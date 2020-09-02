@@ -46,7 +46,7 @@ final class Query
 
     public function fullText(string $keyword)
     {
-        return new Constraint('keyword all', '', $keyword);
+        return new Constraint('keyword all ', '', $keyword);
     }
 
     public function since(\DateTime $date)

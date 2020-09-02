@@ -85,9 +85,47 @@ final class QueryResult implements \Iterator, \Countable
         $this->totalRows = \min($this->query->getLimit(), (int)$xmlObject->numberOfRecords);
 
         $this->pages[$page] = [];
-        foreach ($xmlObject->records->children() as $xmlRecordObject) {
-            $this->pages[$page][] = Publication::createFromXml($xmlRecordObject->recordData->gzd->asXML());
+
+        foreach($xmlObject->getDocNamespaces() as $strPrefix => $strNamespace) {
+            if(empty($strPrefix)) {
+                $strPrefix = '_';
+            }
+
+            $xmlObject->registerXPathNamespace($strPrefix, $strNamespace);
         }
+
+        $key = 0;
+        foreach ($xmlObject->records->children() as $xmlRecordObject) {
+            $this->pages[$page][] = $this->createPublication($xmlRecordObject->recordData->gzd, $key);
+            $key++;
+        }
+    }
+
+    private function createPublication($xmlObject, $key): Publication
+    {
+        foreach($xmlObject->getNamespaces() as $strPrefix => $strNamespace) {
+            if(empty($strPrefix)) {
+                $strPrefix = '_';
+            }
+
+            $xmlObject->registerXPathNamespace($strPrefix, $strNamespace);
+        }
+
+        $instance = new Publication(
+            (string)$xmlObject->xpath('//dcterms:identifier')[$key],
+            (string)$xmlObject->xpath('//dcterms:type')[$key],
+            (string)$xmlObject->xpath('//dcterms:title')[$key],
+            (string)$xmlObject->xpath('//_:url')[$key]
+        );
+
+        $publicationDate = \DateTime::createFromFormat(
+            'Y-m-d',
+            (string)$xmlObject->xpath('//dcterms:available')[$key]
+        );
+        if ($publicationDate instanceof \DateTime) {
+            $instance->setPublicationDate($publicationDate);
+        }
+        return $instance;
     }
 
     private function buildRequestConfiguration(array $options = []): array
