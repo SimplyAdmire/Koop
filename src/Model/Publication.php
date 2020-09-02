@@ -42,30 +42,6 @@ final class Publication
         }
     }
 
-    public static function createFromXml(string $xml): Publication
-    {
-        $xmlObject = \simplexml_load_string($xml);
-        foreach($xmlObject->getDocNamespaces() as $strPrefix => $strNamespace) {
-            if(empty($strPrefix)) {
-                $strPrefix = '_';
-            }
-            $xmlObject->registerXPathNamespace($strPrefix, $strNamespace);
-        }
-
-        $instance = new static(
-            (string)$xmlObject->xpath('//dcterms:identifier')[0],
-            (string)$xmlObject->xpath('//dcterms:type')[0],
-            (string)$xmlObject->xpath('//dcterms:title')[0],
-            (string)$xmlObject->xpath('//_:url')[0]
-        );
-
-        $publicationDate = \DateTime::createFromFormat('Y-m-d', (string)$xmlObject->xpath('//dcterms:available')[0]);
-        if ($publicationDate instanceof \DateTime) {
-            $instance->publicationDate = $publicationDate;
-        }
-        return $instance;
-    }
-
     /**
      * @return string
      */
@@ -104,6 +80,15 @@ final class Publication
     public function getPublicationDate(): ?\DateTime
     {
         return $this->publicationDate;
+    }
+
+    /**
+     * @param \DateTime $publicationDate
+     * @return \DateTime
+     */
+    public function setPublicationDate(\DateTime $publicationDate)
+    {
+        return $this->publicationDate = $publicationDate;
     }
 
 }
