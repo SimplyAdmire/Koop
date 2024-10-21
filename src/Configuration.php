@@ -12,7 +12,7 @@ final class Configuration
      * The base URI of the API
      *
      * @var string
-     *
+     */
     private $apiBaseUrl = 'https://zoekdienst.overheid.nl/sru/Search';
 
     /**
