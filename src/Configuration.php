@@ -13,7 +13,7 @@ final class Configuration
      *
      * @var string
      */
-    private $apiBaseUrl = 'https://zoek.officielebekendmakingen.nl/sru/Search/';
+    private $apiBaseUrl = 'https://zoekdienst.overheid.nl/sru/Search/';
 
     /**
      * A possible configuration array for the guzzle client
